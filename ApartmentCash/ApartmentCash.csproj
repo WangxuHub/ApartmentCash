@@ -43,6 +43,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -161,6 +163,21 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="DBApartmentCash.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DBApartmentCash.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBApartmentCash.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DBApartmentCash.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBApartmentCash.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DBApartmentCash.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -179,6 +196,23 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="DBApartmentCash.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DBApartmentCash.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DBApartmentCash.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DBApartmentCash.edmx</DependentUpon>
+      <LastGenOutput>DBApartmentCash.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DBApartmentCash.edmx.diagram">
+      <DependentUpon>DBApartmentCash.edmx</DependentUpon>
+    </Content>
+    <Content Include="DBApartmentCash.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DBApartmentCash.edmx</DependentUpon>
+      <LastGenOutput>DBApartmentCash.cs</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -236,6 +270,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
