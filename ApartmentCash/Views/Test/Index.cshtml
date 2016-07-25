@@ -1,0 +1,38 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Index</title>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+</head>
+<body>
+  
+   <form id="form1" target="_blank">
+       <p>
+           name:
+           <input type="text" name="name" id="iptName" required minlength="2" />
+       </p>
+       <p>
+           password:
+           <input type="password" name="password" id="iptpassword" minlength="2" maxlength="22"/>
+       </p>
+       <p>
+           email:
+           <input type="email" name="email" id="iptEmail" required maxlength="22" />
+       </p>
+       <input type="submit" value="Submit"/>
+   </form>
+
+    <script>
+        $("#form1").validate();
+    </script>
+</body>
+</html>

@@ -71,7 +71,7 @@ namespace ApartmentCash.Controllers
             if (!ModelState.IsValid)
             {
                 return View(model);
-            }
+            } 
 
             // 这不会计入到为执行帐户锁定而统计的登录失败次数中
             // 若要在多次输入错误密码的情况下触发帐户锁定，请更改为 shouldLockout: true
@@ -79,6 +79,12 @@ namespace ApartmentCash.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    
+                    System.Web.Security.FormsAuthenticationTicket ticket = new System.Web.Security.FormsAuthenticationTicket(model.Email, true, 60);
+                    string ticketStr = System.Web.Security.FormsAuthentication.Encrypt(ticket);
+
+                    
+                    Response.Cookies.Add(new HttpCookie(System.Web.Security.FormsAuthentication.FormsCookieName, ticketStr));
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
