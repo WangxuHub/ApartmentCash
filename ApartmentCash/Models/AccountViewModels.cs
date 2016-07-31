@@ -48,10 +48,14 @@ namespace ApartmentCash.Models
 
     public class LoginViewModel
     {
-        [Required]
-        [Display(Name = "电子邮件")]
+
         [EmailAddress]
+        [Display(Name = "邮箱")]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "用户名")]
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -64,7 +68,11 @@ namespace ApartmentCash.Models
 
     public class RegisterViewModel
     {
+
         [Required]
+        [Display(Name = "用户名")]
+        public string UserName { get; set; }
+        
         [EmailAddress]
         [Display(Name = "电子邮件")]
         public string Email { get; set; }

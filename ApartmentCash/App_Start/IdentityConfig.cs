@@ -47,7 +47,7 @@ namespace ApartmentCash
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
                 AllowOnlyAlphanumericUserNames = false,
-                RequireUniqueEmail = true
+                RequireUniqueEmail = false
             };
 
             // 配置密码的验证逻辑
@@ -106,24 +106,20 @@ namespace ApartmentCash
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
         }
 
-        public override async Task< SignInStatus> PasswordSignInAsync(string userName, string password, bool isPersistent, bool shouldLockout)
-        {
-            SignInStatus status = await Task.Run(() => {
+        //public override async Task< SignInStatus> PasswordSignInAsync(string userName, string password, bool isPersistent, bool shouldLockout)
+        //{
+        //    SignInStatus status = await Task.Run(() => {
 
+        //        return SignInStatus.Success;
+        //    });
 
+        //    //System.Web.Security.FormsAuthenticationTicket ticket = new System.Web.Security.FormsAuthenticationTicket(userName, true, 60);
+        //    //string ticketStr = System.Web.Security.FormsAuthentication.Encrypt(ticket);
+            
 
+        //    //HttpContext.Current.Response.Cookies.Add(new HttpCookie(System.Web.Security.FormsAuthentication.FormsCookieName, ticketStr));
 
-
-                return SignInStatus.Success;
-            });
-
-            System.Web.Security.FormsAuthenticationTicket ticket = new System.Web.Security.FormsAuthenticationTicket(userName, true, 60);
-            string ticketStr = System.Web.Security.FormsAuthentication.Encrypt(ticket);
-
-
-            HttpContext.Current.Response.Cookies.Add(new HttpCookie(System.Web.Security.FormsAuthentication.FormsCookieName, ticketStr));
-
-            return status;
-        }
+        //    return status;
+        //}
     }
 }

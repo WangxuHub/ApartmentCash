@@ -16,7 +16,11 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("注册", "Register", "Account", routeValues: new {name="csy",age=24}, htmlAttributes: new { id = "registerLink" ,name="csy"})</li>
+        @if (Request.Url.Host.ToString()=="127.0.0.1")
+        {
+            <li><a href="/Account/Register" id="registerLink">注册</a></li>
+        }
+        @*<li>@Html.ActionLink("注册", "Register", "Account", routeValues:null, htmlAttributes: new { id = "registerLink" })</li>*@
         <li>@Html.ActionLink("登录", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }

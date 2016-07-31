@@ -15,14 +15,14 @@ namespace ApartmentCash.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "公寓管理系统，更加方便高效的管理~~~.";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "联系.";
 
             return View();
         }
