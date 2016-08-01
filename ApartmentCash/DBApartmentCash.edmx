@@ -4,20 +4,68 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ApartmentCashModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityContainer Name="ApartmentCashModelStoreContainer" />
+      <Schema Namespace="ApartmentCashModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="PersonPayLog">
+          <Key>
+            <PropertyRef Name="PersonPayLog_ID" />
+          </Key>
+          <Property Name="PersonPayLog_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="128" />
+          <Property Name="PayMoney" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="PayDate" Type="datetime" />
+          <Property Name="PaySummary" Type="nvarchar" MaxLength="500" />
+          <Property Name="AddTime" Type="datetime" />
+          <Property Name="AddUser" Type="nvarchar" MaxLength="128" />
+          <Property Name="CheckStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="CheckLogID" Type="int" />
+        </EntityType>
+        <EntityContainer Name="ApartmentCashModelStoreContainer">
+          <EntitySet Name="PersonPayLog" EntityType="Self.PersonPayLog" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ApartmentCashModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="ApartmentCashEntities" annotation:LazyLoadingEnabled="true" />
+        <EntityContainer Name="ApartmentCashEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PersonPayLog" EntityType="ApartmentCashModel.PersonPayLog" />
+        </EntityContainer>
+        <EntityType Name="PersonPayLog">
+          <Key>
+            <PropertyRef Name="PersonPayLog_ID" />
+          </Key>
+          <Property Name="PersonPayLog_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PayMoney" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PayDate" Type="DateTime" Precision="3" />
+          <Property Name="PaySummary" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="AddTime" Type="DateTime" Precision="3" />
+          <Property Name="AddUser" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CheckStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CheckLogID" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ApartmentCashModelStoreContainer" CdmEntityContainer="ApartmentCashEntities" />
+        <EntityContainerMapping StorageEntityContainer="ApartmentCashModelStoreContainer" CdmEntityContainer="ApartmentCashEntities">
+          <EntitySetMapping Name="PersonPayLog">
+            <EntityTypeMapping TypeName="ApartmentCashModel.PersonPayLog">
+              <MappingFragment StoreEntitySet="PersonPayLog">
+                <ScalarProperty Name="CheckLogID" ColumnName="CheckLogID" />
+                <ScalarProperty Name="CheckStatus" ColumnName="CheckStatus" />
+                <ScalarProperty Name="AddUser" ColumnName="AddUser" />
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="PaySummary" ColumnName="PaySummary" />
+                <ScalarProperty Name="PayDate" ColumnName="PayDate" />
+                <ScalarProperty Name="PayMoney" ColumnName="PayMoney" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="PersonPayLog_ID" ColumnName="PersonPayLog_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
