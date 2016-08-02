@@ -25,6 +25,15 @@ namespace ApartmentCash
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<PersonPayLog> PersonPayLog { get; set; }
+        
+    	/// <summary>
+        /// 
+        /// </summary>
+    	public virtual DbSet<PersonPayLog> PersonPayLog { get; set; }
+        
+    	/// <summary>
+        /// 
+        /// </summary>
+    	public virtual DbSet<Table_2> Table_2 { get; set; }
     }
 }
