@@ -161,6 +161,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DBApartmentCash.Context.tt</DependentUpon>
+      <CustomToolNamespace>ApartmentCash.DBModel</CustomToolNamespace>
     </Compile>
     <Compile Include="DBApartmentCash.cs">
       <AutoGen>True</AutoGen>
@@ -176,8 +177,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CashViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="PersonPayLog.cs">
+      <DependentUpon>DBApartmentCash.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="WebForm1.aspx.cs">
@@ -189,17 +194,21 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="DBApartmentCash.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DBApartmentCash.edmx</DependentUpon>
       <LastGenOutput>DBApartmentCash.Context.cs</LastGenOutput>
+      <CustomToolNamespace>ApartmentCash.DBModel</CustomToolNamespace>
     </Content>
     <Content Include="DBApartmentCash.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DBApartmentCash.edmx</DependentUpon>
       <LastGenOutput>DBApartmentCash.cs</LastGenOutput>
+      <CustomToolNamespace>ApartmentCash.DBModel</CustomToolNamespace>
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -208,14 +217,21 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery.form.js" />
+    <Content Include="Scripts\npm.js" />
     <Content Include="WebForm1.aspx" />
     <EntityDeploy Include="DBApartmentCash.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DBApartmentCash.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ApartmentCash.DBModel</CustomToolNamespace>
     </EntityDeploy>
     <Content Include="DBApartmentCash.edmx.diagram">
       <DependentUpon>DBApartmentCash.edmx</DependentUpon>
     </Content>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -266,14 +282,12 @@
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Cash\Index.cshtml" />
     <Content Include="Views\Cash\Add.cshtml" />
+    <Content Include="Views\Cash\test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>

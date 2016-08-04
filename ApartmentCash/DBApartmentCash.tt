@@ -18,12 +18,21 @@ if (!typeMapper.VerifyCaseInsensitiveTypeUniqueness(typeMapper.GetAllGlobalItems
 
 WriteHeader(codeStringGenerator, fileManager);
 
+string summary=string.Empty;
+
 foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection))
 {
     fileManager.StartNewFile(entity.Name + ".cs");
     BeginNamespace(code);
+	if(entity.Documentation!=null&&entity.Documentation.Summary!=null)
+        summary=entity.Documentation.Summary;
+    else
+        summary=entity.Name;
 #>
 <#=codeStringGenerator.UsingDirectives(inHeader: false)#>
+/// <summary>
+/// <#=summary#>
+/// </summary>
 <#=codeStringGenerator.EntityClassOpening(entity)#>
 {
 <#
@@ -69,7 +78,15 @@ foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection)
     {
         foreach (var edmProperty in simpleProperties)
         {
+		if(edmProperty.Documentation != null && edmProperty.Documentation.Summary != null)
+                                summary=edmProperty.Documentation.Summary;
+                        else
+                                summary="";
 #>
+
+    /// <summary>
+    /// <#=summary#>
+    /// </summary>
     <#=codeStringGenerator.Property(edmProperty)#>
 <#
         }

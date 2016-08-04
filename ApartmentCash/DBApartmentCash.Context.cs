@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ApartmentCash
+namespace ApartmentCash.DBModel
 {
     using System;
     using System.Data.Entity;
@@ -30,10 +30,5 @@ namespace ApartmentCash
         /// 
         /// </summary>
     	public virtual DbSet<PersonPayLog> PersonPayLog { get; set; }
-        
-    	/// <summary>
-        /// 
-        /// </summary>
-    	public virtual DbSet<Table_2> Table_2 { get; set; }
     }
 }

@@ -6,7 +6,6 @@
     <edmx:Diagrams>
       <Diagram DiagramId="da17898b68394494a466d546a0fc4516" Name="Diagram1" >
         <EntityTypeShape EntityType="ApartmentCashModel.PersonPayLog" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="ApartmentCashModel.Table_2" Width="1.5" PointX="2.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

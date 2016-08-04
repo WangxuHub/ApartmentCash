@@ -7,21 +7,60 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ApartmentCash
+namespace ApartmentCash.DBModel
 {
     using System;
     using System.Collections.Generic;
     
+    /// <summary>
+    /// PersonPayLog
+    /// </summary>
     public partial class PersonPayLog
     {
+    
+        /// <summary>
+        /// 
+        /// </summary>
         public int PersonPayLog_ID { get; set; }
+    
+        /// <summary>
+        /// 付款人员ID 
+        /// </summary>
         public string UserID { get; set; }
+    
+        /// <summary>
+        /// 付款金额
+        /// </summary>
         public Nullable<decimal> PayMoney { get; set; }
+    
+        /// <summary>
+        /// 付款时间
+        /// </summary>
         public Nullable<System.DateTime> PayDate { get; set; }
+    
+        /// <summary>
+        /// 付款说明
+        /// </summary>
         public string PaySummary { get; set; }
+    
+        /// <summary>
+        /// 记录增加时间
+        /// </summary>
         public Nullable<System.DateTime> AddTime { get; set; }
+    
+        /// <summary>
+        /// 记录添加人
+        /// </summary>
         public string AddUser { get; set; }
+    
+        /// <summary>
+        /// 审核状态
+        /// </summary>
         public string CheckStatus { get; set; }
+    
+        /// <summary>
+        /// 审核日志表ID
+        /// </summary>
         public Nullable<int> CheckLogID { get; set; }
     }
 }
