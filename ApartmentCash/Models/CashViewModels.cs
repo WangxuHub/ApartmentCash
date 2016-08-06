@@ -10,11 +10,28 @@ namespace ApartmentCash.Models
     {
         [Required]
         [Display(Name = "金额")]
-        public decimal PayMoney { get; set; }
+        public decimal? PayMoney { get; set; }
         
         [Display(Name = "备注")]
         public string PaySummary { get; set; }
+
+
+        [Display(Name = "时间")]
+        public DateTime? PayDate { get; set; }
+
+
+        [Display(Name = "状态")]
+        public string CheckStatus { get; set; }
+
+        [Display(Name = "付款人ID")]
+        public string UserID { get; set; }
+
+
+        [Display(Name = "付款人")]
+        public string UserName { get; set; }
+
         
+
     }
 
 

@@ -37,7 +37,7 @@
             </div>
         </div>
     </div> 
-    <div class="container body-content">
+    <div class="container body-content" id="body-content">
         @RenderBody()
         <hr />
         <footer>
@@ -46,7 +46,17 @@
     </div>
 
     <script>
-        
+        (function () {
+            var contentW = $("#body-content").width()+20;
+            var winW = $(window).width();
+
+            var zoomRate = winW/contentW;
+            if (zoomRate >=1.7)
+               $("body").css("zoom",1.7);
+
+
+
+        })();
     </script>
  
     @RenderSection("Scripts", required: false)

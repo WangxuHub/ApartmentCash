@@ -1,4 +1,5 @@
-﻿
+﻿@using ApartmentCash.Models
+@model IEnumerable<ApartmentCash.Models.CashViewModel>
 @{
     ViewBag.Title = "Index";
 }
@@ -29,7 +30,40 @@
 
 </div>
 
-<div class="row"></div>
+<div class="row">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    付款人
+                </th>
+                <th>
+                    付款金额
+                </th>
+                <th>付款时间</th>
+                <th>状态</th>
+               
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(a => item.UserName)</td>
+                    <td>@Html.DisplayFor(a => item.PayMoney)</td>
+                    <td>@Html.DisplayFor(a => item.PayDate)</td>
+                    <td>@Html.DisplayFor(a => item.CheckStatus)</td>
+                </tr>
+
+            }
+
+        </tbody>
+
+    </table>
+
+
+</div>
 
 <div class="row">
     <nav>
