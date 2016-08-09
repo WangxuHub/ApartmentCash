@@ -1,0 +1,78 @@
+﻿@using ApartmentCash.Models
+@model IEnumerable<ApartmentCash.Models.DateWashViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>出纳列表</h2>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-4  bg-danger">
+        @Html.ActionLink("生成日期", "CreateDate", null, new { @class = "btn btn-primary" })
+    </div>
+    <div class="col-xs-12 col-sm-8  bg-info">
+        <div class="btn-group pull-right" role="group" aria-label="...">
+            <button type="button" class="btn btn-default">1</button>
+            <button type="button" class="btn btn-default">2</button>
+
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropdown
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Dropdown link</a></li>
+                    <li><a href="#">Dropdown link</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    时间
+                </th>
+                <th>
+                    人员
+                </th>
+                <th>完成情况</th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(a => item.DateStr)</td>
+                    <td>@Html.DisplayFor(a => item.UserName)</td>
+                    <td>@Html.DisplayFor(a => item.IsFinish)</td>
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+
+
+</div>
+
+<div class="row">
+    <nav>
+        <ul class="pagination">
+            <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+        </ul>
+    </nav>
+</div>
+

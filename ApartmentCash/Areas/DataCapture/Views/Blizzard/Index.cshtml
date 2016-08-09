@@ -1,0 +1,44 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <title>Index</title>
+    <style>
+        * {
+            padding:0px;
+            margin:0px;
+        }
+        .video_show_lunara {
+            width:100%;
+            overflow: hidden;
+        }
+
+            .video_show_lunara video {
+                width: 1920px;
+                height:682px;
+            }
+    </style>
+
+</head>
+<body>
+    <div class="video_show_lunara">
+        <video loop="true" autoplay="autoplay" preload="true">
+            <source src="~/Areas/DataCapture/Resource/video/古尔丹.webm" type="video/webm">
+            <source src="~/Areas/DataCapture/Resource/video/古尔丹.mp4" type="video/mp4">
+        </video>
+    </div>
+    <script>
+        
+        var height = $(document).height();
+
+
+    </script>
+</body>
+</html>

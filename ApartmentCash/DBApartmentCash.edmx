@@ -22,6 +22,15 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <EntityType Name="DateWash">
+          <Key>
+            <PropertyRef Name="DateWashID" />
+          </Key>
+          <Property Name="DateWashID" Type="int" Nullable="false" />
+          <Property Name="DateStr" Type="varchar" MaxLength="50" />
+          <Property Name="UserID" Type="varchar" MaxLength="50" />
+          <Property Name="IsFinish" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="PersonPayLog">
           <Key>
             <PropertyRef Name="PersonPayLog_ID" />
@@ -38,6 +47,7 @@
         </EntityType>
         <EntityContainer Name="ApartmentCashModelStoreContainer">
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DateWash" EntityType="Self.DateWash" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonPayLog" EntityType="Self.PersonPayLog" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -47,6 +57,7 @@
         <EntityContainer Name="ApartmentCashEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="PersonPayLog" EntityType="ApartmentCashModel.PersonPayLog" />
           <EntitySet Name="AspNetUsers" EntityType="ApartmentCashModel.AspNetUsers" />
+          <EntitySet Name="DateWash" EntityType="ApartmentCashModel.DateWash" />
         </EntityContainer>
         <EntityType Name="PersonPayLog">
           <Key>
@@ -111,6 +122,15 @@
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="DateWash">
+          <Key>
+            <PropertyRef Name="DateWashID" />
+          </Key>
+          <Property Name="DateWashID" Type="Int32" Nullable="false" />
+          <Property Name="DateStr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsFinish" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -147,6 +167,16 @@
                 <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DateWash">
+            <EntityTypeMapping TypeName="ApartmentCashModel.DateWash">
+              <MappingFragment StoreEntitySet="DateWash">
+                <ScalarProperty Name="IsFinish" ColumnName="IsFinish" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="DateStr" ColumnName="DateStr" />
+                <ScalarProperty Name="DateWashID" ColumnName="DateWashID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

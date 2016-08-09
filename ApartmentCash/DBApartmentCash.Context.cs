@@ -35,5 +35,10 @@ namespace ApartmentCash.DBModel
         /// 
         /// </summary>
     	public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        
+    	/// <summary>
+        /// 
+        /// </summary>
+    	public virtual DbSet<DateWash> DateWash { get; set; }
     }
 }
