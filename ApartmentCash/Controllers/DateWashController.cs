@@ -11,20 +11,24 @@ namespace ApartmentCash.Controllers
     {
         [AllowAnonymous]
         // GET: DateWash
-        public ActionResult Index()
+        public ActionResult Index(int pageIndex=1)
         {
+            int start = pageIndex * 10;
+            int end = (pageIndex - 1) * 10;
             DBModel.ApartmentCashEntities ef = new DBModel.ApartmentCashEntities();
 
             List<Models.DateWashViewModel> list = (
                                                from a in ef.DateWash
-                                               join b in ef.AspNetUsers on a.UserID equals b.Id
+                                               join b in ef.AspNetUsers.DefaultIfEmpty() on a.UserID equals b.Id into temp
+                                               orderby a.DateStr
+                                               from t in temp.DefaultIfEmpty()
                                                select new Models.DateWashViewModel()
                                                {
                                                    DateStr = a.DateStr,
                                                    UserID = a.UserID,
                                                    IsFinish= a.IsFinish,
-                                                   UserName = b.UserName
-                                               }).ToList();
+                                                   UserName = t.UserName
+                                               }).OrderBy(item=>item.DateStr).Take(start).Skip(end).ToList();
 
             return View(list);
         }
