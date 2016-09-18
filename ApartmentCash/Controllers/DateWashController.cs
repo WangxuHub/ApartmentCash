@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Common;
 using System.Web.Mvc;
 
 namespace ApartmentCash.Controllers
@@ -11,10 +12,10 @@ namespace ApartmentCash.Controllers
     {
         [AllowAnonymous]
         // GET: DateWash
-        public ActionResult Index(int pageIndex=1)
+        public ActionResult Index(int id=1)
         {
-            int start = pageIndex * 10;
-            int end = (pageIndex - 1) * 10;
+            int start = id * 10;
+            int end = (id - 1) * 10;
             DBModel.ApartmentCashEntities ef = new DBModel.ApartmentCashEntities();
 
             List<Models.DateWashViewModel> list = (
@@ -30,6 +31,9 @@ namespace ApartmentCash.Controllers
                                                    UserName = t.UserName
                                                }).OrderBy(item=>item.DateStr).Take(start).Skip(end).ToList();
 
+
+            List<DBModel.AspNetUsers> userList = ef.AspNetUsers.Where(item=>item.UserName!="管理员").OrderBy(item => item.UserName).ToList();
+            ViewBag.userList = userList;
             return View(list);
         }
 
@@ -37,6 +41,8 @@ namespace ApartmentCash.Controllers
         {
             return View();
         }
+
+        private Common.mJsonResult json = new Common.mJsonResult();
 
 
 
@@ -88,6 +94,58 @@ namespace ApartmentCash.Controllers
 
 
             return RedirectToAction("index");
+        }
+
+        [HttpPost]
+        public ActionResult CreateDateWashPerson()
+        {
+            int createCount = Request["createCount"].ToInt();
+            string [] personList = Request["personList"].Split(',');
+            string startDate = Request["startDate"];
+
+            DBModel.ApartmentCashEntities ef = new DBModel.ApartmentCashEntities();
+
+            System.Data.Entity.Database db = ef.Database;
+
+            using (System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection(db.Connection.ConnectionString))
+            {
+                conn.Open();
+                System.Data.SqlClient.SqlTransaction trans = conn.BeginTransaction();
+
+                try
+                {
+                    for (int i = 0; i < createCount; i++)
+                    {
+                        string userID = personList[i % personList.Length];
+                        string dateStr = DateTime.Parse(startDate).AddDays(i).ToString("yyyy-MM-dd");
+                        string sql = "update DateWash set UserID=@UserID where DateStr=@DateStr";
+
+                        System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(sql, conn, trans);
+                        cmd.Parameters.AddWithValue("@UserID", userID);
+                        cmd.Parameters.AddWithValue("@DateStr", dateStr);
+                        cmd.ExecuteNonQuery();
+                    }
+                    trans.Commit();
+
+                }
+                catch (Exception ee)
+                {
+                    trans.Rollback();
+                    json.success = false;
+                    json.msg = ee.Message;
+                    if (ee.InnerException != null)
+                    {
+                        json.msg += "  " + ee.InnerException.Message;
+                    }
+                }
+            }
+
+
+
+
+            json.success = true;
+            json.msg = "生成成功";
+            return Content(json.ToString());
         }
     }
 }

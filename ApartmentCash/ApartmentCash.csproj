@@ -319,6 +319,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{06bddf1d-5e8f-4098-88e0-09636a84f799}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WX.Common\WX.Common.csproj">
       <Project>{a449d61f-345a-4c10-899b-d1a7f2433a14}</Project>
       <Name>WX.Common</Name>

@@ -11,6 +11,53 @@
         background-color:#ccc;
     }
 
+    td.user:hover {
+        cursor:pointer;
+        background-color:rgb(204,196,247);
+    }
+
+
+     #ul-userlist  {
+        list-style:none;
+        width:200px;
+        padding-left:0px;
+        position:relative;
+        border:1px solid #ccc;
+        min-height: 230px;
+        width: 100%;
+        box-sizing:border-box;
+    }
+    #ul-userlist li {
+        background-color:white;
+        display:inline-block;
+        padding:10px;
+        min-width:75%;
+        cursor:move;
+    }
+    #ul-userlist li.insertMark {
+        border-top:1px solid blue;
+    } 
+
+    #ul-userlist li:hover {
+        background-color:#ccc;
+    }
+    
+    .user-name {
+        display:inline-block;
+    }
+
+    #ul-userlist .del {
+        float: right;
+        cursor: pointer;
+        display: inline-block;
+        width: 30px;
+        text-align: center;
+    }
+
+    #ul-userlist .del:hover {
+        color: red;
+        font-weight: bold;
+    }
 </style>
 <h2>排洗列表</h2>
 
@@ -39,7 +86,7 @@
 </div>
 
 <div class="row">
-    <table class="table table-striped  table-bordered">
+    <table class="table  table-bordered"> @*table-striped*@ 
         <thead>
             <tr>
                 <th>
@@ -56,9 +103,9 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
+                <tr >
                     <td>@Html.DisplayFor(a => item.DateStr)</td>
-                    <td class="text-center">@Html.DisplayFor(a => item.UserName)</td>
+                    <td class="text-center user">@Html.DisplayFor(a => item.UserName)</td>
                     <td>@Html.DisplayFor(a => item.IsFinish)</td>
                 </tr>
             }
@@ -75,7 +122,7 @@
         <ul class="pagination">
             <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
             <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-            <li><a href="/DateWash/Index?pageIndex=2">2</a></li>
+            <li><a href="/DateWash/Index/2">2</a></li>
             <li><a href="#">3</a></li>
             <li><a href="#">4</a></li>
             <li><a href="#">5</a></li>
@@ -83,4 +130,137 @@
         </ul>
     </nav>
 </div>
+
+
+<!-------------------------------------->
+<!-- Modal -->
+<div class="modal fade" id="userChooseModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">人员选择</h4>
+            </div>
+            <div class="modal-body">
+                <ul id="ul-userlist" onselectstart="return false" onselect="document.selection.empty()" ondragstart="return false">
+                    @foreach (ApartmentCash.DBModel.AspNetUsers item in ViewBag.userList)
+                    {
+                        <li user-id="@item.Id">
+                            <span class="user-name">@item.UserName</span>
+                            <span class="del">X</span>
+                        </li>
+                    }
+                    <li>&nbsp;</li>
+                </ul>
+                <div>
+                    <input type="text" id="iptStartDate" readonly/>
+                    <label>天数:</label>
+                    <input type="number" value="30" id="iptDays"/>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align: center;">
+                <button type="button" class="btn btn-primary" id="btnSubmitCreate">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--------------------------------------->
+<script>
+    $("table").on('click', 'td.user', function () {
+        $('#userChooseModal').modal('show');
+        $("#iptStartDate").val($(this).siblings("td").eq(0).text());
+        return false;
+    });
+
+    $("#ul-userlist").on('mousedown', 'li', function (e) {
+        if ($(e.target).is('.del'))
+            return false;
+        $(this).addClass("hold").siblings("li").removeClass("hold");
+        
+        var jqObj = $(this);
+        var offWidth = e.pageX - jqObj.offset().left;
+        var offHeight = e.pageY - jqObj.offset().top;
+        jqObj.data({ offWidth: offWidth, offHeight: offHeight });
+        jqObj.css({ "left": jqObj.position().left + "px", "top": jqObj.position().top + "px", position: "absolute" });
+        return false;
+    });
+
+    $("#ul-userlist").on('mouseup', function () {
+        var jqObj = $("#ul-userlist li.hold");
+        jqObj.removeClass("hold").css("position", "static");
+        $(".insertMark").before(jqObj);
+        $(".insertMark").removeClass("insertMark");
+        return false;
+    });
+    $("#ul-userlist").on('mousemove', function (e) {
+        var jqObj = $("#ul-userlist li.hold");
+        if (jqObj.length <= 0)
+            return false;
+        var offWidth = jqObj.data('offWidth');
+        var offHeight = jqObj.data('offHeight');
+        var pL = jqObj.parent().offset().left;
+        var pt = jqObj.parent().offset().top;
+
+
+        var left = e.pageX - pL - offWidth;
+        var top = e.pageY - pt - offHeight;
+
+        if (left <= 0)
+            return false;
+
+        if (left >= jqObj.parent().width() - jqObj.width())
+            return false;
+
+
+        if (top <= 0)
+            return false;
+
+        if (top >= jqObj.parent().height() - jqObj.height())
+            return false;
+
+        jqObj.css({ "left": left + "px", "top": top + "px", position: "absolute" });
+
+        $("#ul-userlist li:not(.hold)").removeClass("insertMark");
+
+        $("#ul-userlist li:not(.hold)").each(function () {
+            var h1 = $(this).position().top;
+            var h2 =h1+ $(this).height();
+
+            if (h1 <= top && top <= h2)
+            {
+                $(this).addClass("insertMark");
+                return false;
+            }
+        });
+
+        return false;
+    });
+
+
+    $("#ul-userlist").on('click', '.del', function () {
+        $(this).closest('li').remove();
+    });
+
+    $("#btnSubmitCreate").click(function () {
+        var data = $("#ul-userlist li[user-id]").map(function () { return $(this).attr("user-id"); }).get();
+
+        if (!data)
+            return;
+        var postData = new Object();
+        postData.createCount = $("#iptDays").val();
+        postData.personList = data.join(",");
+        postData.startDate = $("#iptStartDate").val();
+        $.post("/DateWash/CreateDateWashPerson", postData, function (json) {
+            if(!json.success)
+            {
+                alert(json.msg);
+                return false;
+            }
+            location.reload();
+        }, 'json');
+
+
+    });;
+</script>
 
