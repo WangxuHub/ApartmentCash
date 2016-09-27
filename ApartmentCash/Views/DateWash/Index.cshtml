@@ -106,7 +106,7 @@
                 <tr >
                     <td>@Html.DisplayFor(a => item.DateStr)</td>
                     <td class="text-center user">@Html.DisplayFor(a => item.UserName)</td>
-                    <td>@Html.DisplayFor(a => item.IsFinish)</td>
+                    <td><a class="noInTrun" href="javascript:void(0);">轮空</a>   @Html.DisplayFor(a => item.IsFinish)</td>
                 </tr>
             }
 
@@ -119,14 +119,34 @@
 
 <div class="row">
     <nav>
-        <ul class="pagination">
-            <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-            <li><a href="/DateWash/Index/2">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+        <div class="btn-group" role="group" style="vertical-align: middle;">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @ViewBag.year
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="/DateWash/@(ViewBag.year-2)/@ViewBag.month">@(ViewBag.year - 2)</a></li>
+                <li><a href="/DateWash/@(ViewBag.year-1)/@ViewBag.month">@(ViewBag.year - 1)</a></li>
+                <li class="active"><a href="/DateWash/@ViewBag.year/@ViewBag.month">@ViewBag.year</a></li>
+                <li><a href="/DateWash/@(ViewBag.year+1)/@ViewBag.month">@(ViewBag.year + 1)</a></li>
+                <li><a href="/DateWash/@(ViewBag.year+2)/@ViewBag.month">@(ViewBag.year + 2)</a></li>
+            </ul>
+        </div>
+        <ul id="pageNav" class="pagination" style="vertical-align: middle;">
+            <li class='pageNavPre @(ViewBag.pageIndex==1?"disabled":"")'><a href="javascript:void(0);"><span>«</span></a></li>
+        
+            @for (int i = 1; i <= 12; i++)
+            {
+                string className = "";
+                if (i == ViewBag.pageIndex)
+                {
+                    className = "active";
+                }
+
+                <li class="@className"><a href="/DateWash/@ViewBag.year/@i">@i</a></li>
+            }
+
+            <li class='pageNavNext @(ViewBag.pageIndex==12?"disabled":"")'><a href="javascript:void(0);"><span>»</span></a></li>
         </ul>
     </nav>
 </div>
@@ -177,7 +197,7 @@
         if ($(e.target).is('.del'))
             return false;
         $(this).addClass("hold").siblings("li").removeClass("hold");
-        
+
         var jqObj = $(this);
         var offWidth = e.pageX - jqObj.offset().left;
         var offHeight = e.pageY - jqObj.offset().top;
@@ -225,10 +245,9 @@
 
         $("#ul-userlist li:not(.hold)").each(function () {
             var h1 = $(this).position().top;
-            var h2 =h1+ $(this).height();
+            var h2 = h1 + $(this).height();
 
-            if (h1 <= top && top <= h2)
-            {
+            if (h1 <= top && top <= h2) {
                 $(this).addClass("insertMark");
                 return false;
             }
@@ -252,8 +271,7 @@
         postData.personList = data.join(",");
         postData.startDate = $("#iptStartDate").val();
         $.post("/DateWash/CreateDateWashPerson", postData, function (json) {
-            if(!json.success)
-            {
+            if (!json.success) {
                 alert(json.msg);
                 return false;
             }
@@ -261,6 +279,34 @@
         }, 'json');
 
 
-    });;
+    });
+
+    $("table").on('click', 'a.noInTrun', function () {
+        var dateStr = $(this).closest('td').siblings('td').eq(0).text();
+
+        if (!dateStr)
+            return false;
+
+        $.post("/DateWash/NoInTrun", { dateStr: dateStr }, function (json) {
+            if (!json.success) {
+                alert(json.msg);
+                return false;
+            }
+            location.reload();
+        }, 'json');
+
+        return false;
+    });
+
+    $("#pageNav").on('click', 'li.pageNavPre:not(.disabled),li.pageNavNext:not(.disabled)', function () {
+        var curPageIndex = $("#pageNav li.active a").text();
+        if ($(this).is(".pageNavPre")) {
+            curPageIndex--;
+        }
+        else if ($(this).is(".pageNavNext")) {
+            curPageIndex++;
+        }
+        location.href = "/DateWash/" +@ViewBag.year +"/" + curPageIndex;
+    });
 </script>
 

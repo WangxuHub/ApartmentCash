@@ -228,7 +228,6 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\bootstrapExt.js" />
     <Content Include="Scripts\jquery.form.js" />
-    <Content Include="Web.config" />
     <Content Include="表更改.txt" />
     <EntityDeploy Include="DBApartmentCash.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -252,6 +251,7 @@
     <Content Include="Areas\DataCapture\Views\Blizzard\Index.cshtml" />
     <Content Include="Areas\DataCapture\Resource\video\古尔丹.webm" />
     <None Include="Properties\PublishProfiles\公寓管理系统.pubxml" />
+    <None Include="Properties\PublishProfiles\测试发布.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -298,12 +298,6 @@
     <Content Include="Views\Cash\test.cshtml" />
     <Content Include="Views\DateWash\Index.cshtml" />
     <Content Include="Views\DateWash\CreateDate.cshtml" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
