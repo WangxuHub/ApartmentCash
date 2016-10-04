@@ -1,0 +1,25 @@
+﻿
+<div id="dateWash"></div>
+
+<script src='@Url.Content("~/Views/DateWash/_PartialDateShow.js")'></script>
+<script>
+    ///<reference path='/js.html'/>
+    var year =@ViewBag.year;
+    var month =@ViewBag.month;
+    var day =@ViewBag.day;
+
+    var dateWash=$("#dateWash").dateWash({year:year,month:month,day:day});
+</script>
+
+
+<style>
+    .dateWash-day {
+        display:inline-block;
+        box-sizing:content-box;
+        border:1px solid black;
+        margin:2px;
+        width:40px;
+        height:40px;
+    }
+
+</style>
