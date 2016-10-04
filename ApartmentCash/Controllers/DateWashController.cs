@@ -223,5 +223,34 @@ namespace ApartmentCash.Controllers
             return Content(json.ToString());
         }
 
+        #region 日历
+        [ChildActionOnly]
+        [AllowAnonymous]
+        [Route("CalendarShow/{year:int}/{month:int}/{day:int}")]
+        [Route("CalendarShow/{year:int}/{month:int}")]
+        [Route("CalendarShow/{year:int}")]
+        [Route("CalendarShow")]
+        public ActionResult CalendarShow(int year=0,int month=0,int day=0)
+        {
+            DateTime date = DateTime.Now;
+            if (year <= 0) year = date.Year;
+            if (month <= 0) month = date.Month;
+            if (day <= 0) day = date.Day;
+
+            ViewBag.year = year;
+            ViewBag.month = month;
+            ViewBag.day = day;
+
+            return PartialView("~/Views/DateWash/_PartialDateShow.cshtml");
+        }
+        #endregion
+
+
+        [AllowAnonymous]
+        public ActionResult Test()
+        {
+            return View();
+        }
+
     }
 }

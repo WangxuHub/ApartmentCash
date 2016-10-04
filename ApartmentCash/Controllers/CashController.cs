@@ -62,9 +62,6 @@ namespace ApartmentCash.Controllers
             return RedirectToAction("index");
         }
 
-        public ActionResult Test()
-        {
-            return View();
-        }
+      
     }
 }
