@@ -7,8 +7,9 @@
     var year =@ViewBag.year;
     var month =@ViewBag.month;
     var day =@ViewBag.day;
-
-    var dateWash=$("#dateWash").dateWash({year:year,month:month,day:day});
+    var listJson='@Html.Raw(@ViewBag.listJson)';
+    var list=JSON.parse(listJson);
+    var dateWash=$("#dateWash").dateWash({year:year,month:month,day:day,data:list});
 </script>
 
 

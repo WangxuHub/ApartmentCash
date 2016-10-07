@@ -24,4 +24,11 @@ public static class Commonn
 
         return temp;
     }
+
+    public static string ToJson(this object obj) {
+        if (obj == null)
+            return "";
+        return Newtonsoft.Json.JsonConvert.SerializeObject(obj);
+
+    }
 }

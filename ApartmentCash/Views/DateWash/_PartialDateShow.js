@@ -48,7 +48,18 @@
             $row.appendTo($container);
         }
 
-
+        if (opts.data) {
+            $container.find('.dateWash-day[date]').each(function () {
+                var dateStr = $(this).attr('date');
+                var filter = opts.data.filter(function (item) {
+                    return item.DateStr == dateStr;
+                });
+                if(filter.length>0)
+                {
+                    $(this).attr(filter[0]).append("<span class='dateWashName'>" + (filter[0].UserName||"") + "</span>");;
+                }
+            });
+        }
 
         var defaultCss = $.fn.dateWash.css;
         $("head").append(defaultCss);
@@ -59,7 +70,8 @@
         container: "",
         year: "",
         month: "",
-        day: ""
+        day: "",
+        data:null
     };
 
     $.fn.dateWash.css = " \

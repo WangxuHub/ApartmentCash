@@ -240,6 +240,32 @@ namespace ApartmentCash.Controllers
             ViewBag.year = year;
             ViewBag.month = month;
             ViewBag.day = day;
+            
+
+            int start = month * 10;
+            int end = (month - 1) * 10;
+            DBModel.ApartmentCashEntities ef = new DBModel.ApartmentCashEntities();
+
+
+            string dateStr = new DateTime(year, month, 1).ToString("yyyy-MM");
+            string dateStr1 = new DateTime(year, month - 1, 1).ToString("yyyy-MM");
+            string dateStr2 = new DateTime(year, month + 1, 1).ToString("yyyy-MM");
+            List<Models.DateWashViewModel> list = (
+                                               from a in ef.DateWash
+                                               join b in ef.AspNetUsers.DefaultIfEmpty() on a.UserID equals b.Id into temp
+                                               where a.DateStr.Contains(dateStr) || a.DateStr.Contains(dateStr1) || a.DateStr.Contains(dateStr2)
+                                               
+                                               orderby a.DateStr
+                                               from t in temp.DefaultIfEmpty()
+                                               select new Models.DateWashViewModel()
+                                               {
+                                                   DateStr = a.DateStr,
+                                                   UserID = a.UserID,
+                                                   IsFinish = a.IsFinish,
+                                                   UserName = t.UserName
+                                               }).OrderBy(item => item.DateStr).ToList();//.Take(start).Skip(end).ToList();
+
+            ViewBag.listJson = list.ToJson();
 
             return PartialView("~/Views/DateWash/_PartialDateShow.cshtml");
         }
