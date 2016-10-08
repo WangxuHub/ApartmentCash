@@ -41,7 +41,7 @@
                 else if (month == opts.month && day == opts.day) {
                     extClass = "curDay";
                 }
-                var $day = $("<div class='dateWash-day " + extClass + "' date='" + dateStart.Format("yyyy-MM-dd") + "'>" + dateStart.getDate() + "</div>");
+                var $day = $("<div class='dateWash-day " + extClass + "' date='" + dateStart.Format("yyyy-MM-dd") + "'><div class='date-day'>" + dateStart.getDate() + "</div></div>");
                 $day.appendTo($row);
                 dateStart=getDayNext(dateStart);
             }
@@ -63,6 +63,23 @@
 
         var defaultCss = $.fn.dateWash.css;
         $("head").append(defaultCss);
+        $container.css({
+            'background-color': 'rgb(83,84,84)',
+            display: 'inline-block'
+        });
+
+        var needWidth = $container.find('.dateWash-day:eq(0)').outerWidth(true) * 7;
+        var nowWidth = $container.width();
+        if (needWidth > nowWidth)
+        {
+            //$container.width(needWidth).css({
+            //    'transform': 'scale(' + nowWidth / needWidth + ')',
+            //    'transform-origin': 'top left'
+            //});
+            $container.width(needWidth).css({
+                'zoom':nowWidth / needWidth,
+            });
+        }
         return this;
     }
 
@@ -75,8 +92,53 @@
     };
 
     $.fn.dateWash.css = " \
-                <style type='text/css'>\r\n\
-                </style>";
+        <style type='text/css'>\r\n\
+            .dateWash-day {\
+                display:inline-block;\
+                box-sizing:border-box;\
+                border:3px solid rgb(83,84,84);\
+                margin:2px;\
+                width:60px;\
+                height:60px;\
+                font-family:'Microsoft YaHei';\
+                text-align:center;\
+                color:rgb(253,253,253);\
+                vertical-align:top;\
+                cursor:default;\
+            }\
+            .dateWash-day:hover {\
+                border:3px solid rgb(153,153,153);\
+            }\
+            .dateWash-row.dateWash-head .dateWash-day{\
+                line-height:54px;\
+                color:rgb(236,236,236);\
+            }\
+            .dateWash-row.dateWash-head  .dateWash-day:hover {\
+                border:3px solid rgb(83,84,84);\
+            }\
+            .dateWash-row .dateWash-day.preMonth,.dateWash-row .dateWash-day.nextMonth {\
+                color:rgb(140,140,140);\
+            }\
+            .dateWash-row .dateWash-day .date-day {\
+                padding-top: 4px;\
+                padding-bottom: 4px;\
+            }\
+            .dateWash-row .dateWash-day .dateWashName {\
+                display:block;\
+                font-size:13px;\
+            }\
+            .dateWash-row .dateWash-day.curDay{\
+                background-color:rgb(0,120,215);\
+            }\
+            .dateWash-row .dateWash-day.curDay .date-day {\
+                padding-top: 4px;\
+                padding-bottom: 4px;\
+            }\
+            .dateWash-row .dateWash-day.curDay .dateWashName {\
+                display:block;\
+                font-size:13px;\
+            }\
+        </style>";
 
 
     function getMonthCount(d)

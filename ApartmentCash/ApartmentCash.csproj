@@ -304,14 +304,7 @@
     <Content Include="Views\DateWash\Index.cshtml" />
     <Content Include="Views\DateWash\CreateDate.cshtml" />
     <Content Include="Views\DateWash\_PartialDateShow.cshtml" />
-    <Content Include="Web.config" />
     <Content Include="Views\DateWash\Test.cshtml" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

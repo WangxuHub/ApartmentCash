@@ -226,10 +226,10 @@ namespace ApartmentCash.Controllers
         #region 日历
         [ChildActionOnly]
         [AllowAnonymous]
-        [Route("CalendarShow/{year:int}/{month:int}/{day:int}")]
-        [Route("CalendarShow/{year:int}/{month:int}")]
-        [Route("CalendarShow/{year:int}")]
-        [Route("CalendarShow")]
+        [Route("DateWash/CalendarShow/{year:int}/{month:int}/{day:int}")]
+        [Route("DateWash/CalendarShow/{year:int}/{month:int}")]
+        [Route("DateWash/CalendarShow/{year:int}")]
+        [Route("DateWash/CalendarShow")]
         public ActionResult CalendarShow(int year=0,int month=0,int day=0)
         {
             DateTime date = DateTime.Now;
@@ -273,8 +273,20 @@ namespace ApartmentCash.Controllers
 
 
         [AllowAnonymous]
-        public ActionResult Test()
+        [Route("DateWash/Test/{year:int}/{month:int}/{day:int}")]
+        [Route("DateWash/Test/{year:int}/{month:int}")]
+        [Route("DateWash/Test/{year:int}")]
+        [Route("DateWash/Test")]
+        public ActionResult Test(int year = 0, int month = 0, int day = 0)
         {
+            DateTime date = DateTime.Now;
+            if (year <= 0) year = date.Year;
+            if (month <= 0) month = date.Month;
+            if (day <= 0) day = date.Day;
+
+            ViewBag.year = year;
+            ViewBag.month = month;
+            ViewBag.day = day;
             return View();
         }
 
